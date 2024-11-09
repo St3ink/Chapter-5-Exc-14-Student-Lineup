@@ -13,31 +13,30 @@ Input Validation: Do not accept a number less than 1 or greater than 25 for the 
 #include <iostream>
 #include <string>
 #include <vector> 
+#include <fstream>
+#include <algorithm>
 using namespace std;
 
 int main()
 {
-  int students;
-      cout << "How many students are in your class? ";
-      cin >> students;
+  string studentName;
+  ifstream inFile;
 
-  while (students < 1 || students > 25)
-  {
-    cout << "Invalid input. Please enter a number btetween 1 and 25: ";
-    cin >> students;
-  }
 
-  vector<string> name(students);
+  inFile.open("LineUp.txt");
 
-  cout << "Enter the name of student: \n";
+ vector<string> name(65); //65 students in class to get names of
 
-  for (int count = 0; count < students; ++count)
+  for (int count = 0; count < 65; ++count)
     {
-      cin >> name[count];
+      inFile >> name[count];
     }
 
-  cout << "\nThe first student in line is " << name[0] << endl;
-  cout << "The student at the end of the line is " << name[students - 1] << endl;
+    sort(name.begin(), name.end()); //Sort vector alphabetically
 
+  cout << "\nThe first student in line is " << name.front() << endl; //displays first student in line
+  cout << "The student at the end of the line is " << name.back() << endl; //displays last student in line
+
+  inFile.close();
 return 0;
 }
